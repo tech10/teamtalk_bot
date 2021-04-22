@@ -10,7 +10,7 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -w -s -X main.Version={{.Tag}} -X main.BuildTime={{ env.DATE }}
+      - -w -s -X main.Version={{.Version}} -X main.BuildTime={{ env.DATE }}
     goos:
       - linux
       - windows

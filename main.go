@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"runtime/debug"
 )
 
 func main() {
@@ -12,7 +13,7 @@ func main() {
 	defer func() {
 		if pd := recover(); pd != nil {
 			console_close()
-			fmt.Fprintln(os.Stderr, pd)
+			fmt.Fprintln(os.Stderr, "PANIC\n", pd, "\n", string(debug.Stack()))
 			os.Exit(3)
 		}
 	}()

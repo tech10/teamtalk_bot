@@ -1932,4 +1932,11 @@ func init() {
 			}
 		})
 
+	commands.AddHelp("panic",
+		"Initiates a runtime panic. You probably shouldn't use this.")
+	commands.Add("panic",
+		func(param string) {
+			Panic("This is a user initiated panic. Well done for initiating this panic attack! You have shut down everything in an unsafe manner with the exception of the console, which will close itself to prevent strange things from occurring. Goodbye!")
+		})
+
 }

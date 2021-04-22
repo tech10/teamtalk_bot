@@ -1,4 +1,4 @@
-project_name: nvdaRemoteServer
+project_name: teamtalk_bot
 before:
   hooks:
     - go mod tidy
@@ -6,11 +6,11 @@ builds:
   -
     env:
       - CGO_ENABLED=0
-    binary: nvdaRemoteServer
+    binary: teamtalk_bot
     flags:
       - -trimpath
     ldflags:
-      - -w -s -X main.Version={{.Tag}}
+      - -w -s -X main.Version={{.Tag}} -X main.BuildTime={{ env.DATE }}
     goos:
       - linux
       - windows

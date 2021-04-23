@@ -83,6 +83,7 @@ func (conf *config) Write() bool {
 		console_write("Error creating configuration file " + fname + ": " + err.Error())
 		return false
 	}
+	defer time.Sleep(time.Millisecond * 50)
 	defer f.Close()
 	enc := xml.NewEncoder(f)
 	enc.Indent("", "  ")

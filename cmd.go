@@ -65,11 +65,6 @@ func (commands *Commands) Exec(cmd, param string) bool {
 	if !commands.Exists(cmd) {
 		return false
 	}
-	defer func() {
-		if pd := recover(); pd != nil {
-			fmt.Fprintln(os.Stderr, "PANIC", pd)
-		}
-	}()
 	commands.cmd[cmd](param)
 	return true
 }

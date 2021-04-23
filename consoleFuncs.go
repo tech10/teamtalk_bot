@@ -90,15 +90,6 @@ func console_read_menu(prompt string, menu []string) (int, bool) {
 
 func console_cmd() {
 	defer c.wg.Done()
-	//Recover from panicks here.
-	defer func() {
-		if pd := recover(); pd != nil {
-			fmt.Fprintln(os.Stderr, "PANIC", pd)
-			shutdown()
-			console_close()
-			os.Exit(3)
-		}
-	}()
 
 	for {
 		line, err := console_read_line()

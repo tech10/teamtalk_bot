@@ -85,6 +85,8 @@ func (conf *config) Write() bool {
 	}
 	defer time.Sleep(time.Millisecond * 50)
 	defer f.Close()
+	defer time.Sleep(time.Millisecond * 50)
+	defer f.Sync()
 	enc := xml.NewEncoder(f)
 	enc.Indent("", "  ")
 	err = enc.Encode(conf)

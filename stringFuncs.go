@@ -1,6 +1,6 @@
 package main
 
-const TT_BEEP = string(7)
+const TT_BEEP string = "\a"
 
 func str_yes_no(yesno bool) string {
 	if yesno {

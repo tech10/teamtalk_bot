@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"github.com/chzyer/readline"
+	"github.com/acatton/goreadline-ng"
 	"os"
-	"runtime"
+	_ "runtime"
 	"strings"
 	"sync"
 )
@@ -49,11 +49,13 @@ func console_clear() {
 }
 
 func console_use_readline() bool {
-	ops := runtime.GOOS
-	switch ops {
-	case "windows":
-		return false
-	}
+	/*
+		ops := runtime.GOOS
+		switch ops {
+		case "windows":
+			return false
+		}
+	*/
 	return true
 }
 

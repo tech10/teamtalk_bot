@@ -1599,7 +1599,7 @@ menuloop:
 			console_write("Server removed.")
 		}
 	}
-	return false
+	// return false
 }
 
 func (conf *config) Duplicate_servers_by_info(servers []*tt_server) bool {

@@ -13,7 +13,6 @@ func signals_init() {
 	kill := make(chan os.Signal)
 	signal.Notify(kill,
 		os.Interrupt,
-		os.Kill,
 		syscall.SIGTERM,
 		syscall.SIGQUIT)
 	quit = make(chan bool)

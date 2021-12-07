@@ -28,7 +28,7 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
       -
         name: Set DateEnv
-          run: echo "DATE=$(date -u '+%Y-%m-%d__%H:%M:%S_(%Z)')" >> $GITHUB_ENV
+        run: echo "DATE=$(date -u '+%Y-%m-%d__%H:%M:%S_(%Z)')" >> $GITHUB_ENV
       -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2

@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-//Function to ping all servers here.
+// Function to ping all servers here.
 
 func servers_ping(ping_times int) {
 	defer func() {

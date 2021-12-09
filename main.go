@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	//Recover from a panic, which will crash the program,
-	//but will recover the terminal to a sane state.
+	// Recover from a panic, which will crash the program,
+	// but will recover the terminal to a sane state.
 	defer func() {
 		if pd := recover(); pd != nil {
 			console_close()

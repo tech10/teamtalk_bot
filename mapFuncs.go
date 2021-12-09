@@ -1,7 +1,7 @@
 package main
 
-//Compares two maps of type map[string]map[string]string
-//and returns added, changed, removed
+// Compares two maps of type map[string]map[string]string
+// and returns added, changed, removed
 
 import "fmt"
 

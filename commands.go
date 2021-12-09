@@ -11,7 +11,6 @@ import (
 var commands Commands
 
 func init() {
-
 	commands = NewCommands()
 
 	commands.AddHelp("help",
@@ -1376,7 +1375,6 @@ func init() {
 			}
 
 			console_write(prompt + str)
-
 		})
 
 	commands.AddHelp("clear",
@@ -1801,7 +1799,6 @@ func init() {
 				console_write(prompt + " to " + ch_dest.Path_read())
 				return
 			}
-
 		})
 
 	commands.AddHelp("history",
@@ -1887,9 +1884,11 @@ func init() {
 				cmd = params[0]
 			}
 			if cmd == "" {
-				menu := []string{"Add a user account",
+				menu := []string{
+					"Add a user account",
 					"Change a user account",
-					"Remove a user account"}
+					"Remove a user account",
+				}
 				res, aborted := console_read_menu("Please select your option.\r\n", menu)
 				if aborted || res == -1 {
 					return
@@ -1914,7 +1913,7 @@ func init() {
 				server.Account_add_prompt(username, password, usertype)
 				return
 			case "change", "mod", "modify":
-				//cmd_params := stringSeperateParam(strings.Join(params[1:], " "), " ", "\"")
+				// cmd_params := stringSeperateParam(strings.Join(params[1:], " "), " ", "\"")
 
 				console_write("Command not implemented.")
 				return
@@ -1938,5 +1937,4 @@ func init() {
 		func(param string) {
 			panic("This is a user initiated panic. Well done for initiating this panic attack! You have shut down everything in an unsafe manner with the exception of the console, which will close itself to prevent strange things from occurring. Goodbye!")
 		})
-
 }

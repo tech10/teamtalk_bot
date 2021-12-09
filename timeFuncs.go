@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/hako/durafmt"
 	"time"
+
+	"github.com/hako/durafmt"
 )
 
 func time_duration_str(duration time.Duration) string {

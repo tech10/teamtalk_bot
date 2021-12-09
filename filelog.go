@@ -8,7 +8,7 @@ import (
 
 func dir_create(dir string) error {
 	if len(dir) > 1 {
-		//Check directory existance and create it.
+		// Check directory existance and create it.
 		_, derr := os.Stat(dir)
 		exists := os.IsExist(derr)
 		if !exists {

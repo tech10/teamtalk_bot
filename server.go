@@ -14,12 +14,15 @@ import (
 	"time"
 )
 
-//Command ids.
+// Command ids.
 const TT_CMD_NONE = 0
-const TT_CMD_LOGIN = 1
-const TT_CMD_LIST_ACCOUNTS = 2
-const TT_CMD_LIST_BANS = 3
-const TT_CMD_MIN_ID = 4
+
+const (
+	TT_CMD_LOGIN         = 1
+	TT_CMD_LIST_ACCOUNTS = 2
+	TT_CMD_LIST_BANS     = 3
+	TT_CMD_MIN_ID        = 4
+)
 
 type tt_server struct {
 	sync.Mutex
@@ -221,16 +224,16 @@ func (server *tt_server) Read_line() (string, error) {
 func (server *tt_server) Process() {
 	defer server.Config().wg.Done()
 	defer server.Shutdown()
-	//Recover from a panic, which will shut down
-	//the server on which it panicked,
-	//and will log the panic.
-	//This shouldn't happen, so if it does,
-	//something is seriously wrong.
-	//This is here to gracefully recover,
-	//and avoid crashing the entire program.
-	//If recovering from a panic,
-	//you will be disconnected from
-	//only the server on which the panic occurred.
+	// Recover from a panic, which will shut down
+	// the server on which it panicked,
+	// and will log the panic.
+	// This shouldn't happen, so if it does,
+	// something is seriously wrong.
+	// This is here to gracefully recover,
+	// and avoid crashing the entire program.
+	// If recovering from a panic,
+	// you will be disconnected from
+	// only the server on which the panic occurred.
 	defer func() {
 		if pd := recover(); pd != nil {
 			server.Log_write("PANIC ERROR\r\n"+fmt.Sprint(pd), true)
@@ -261,7 +264,7 @@ loop:
 		if cmdline == "" {
 			continue
 		}
-		//Command processing.
+		// Command processing.
 		cmd := teamtalk_get_cmd(cmdline)
 		params := teamtalk_get_params(cmdline)
 		server.Log_reset()
@@ -291,7 +294,7 @@ loop:
 			user_type, _ := teamtalk_param_int(params, "usertype")
 			server.User_type_set(user_type)
 
-			//Give the bot its own user based on the available information.
+			// Give the bot its own user based on the available information.
 
 			uid, _ := teamtalk_param_int(params, "userid")
 			usr := server.User_add(uid)
@@ -310,7 +313,7 @@ loop:
 			usr.Version_set(Version)
 			usr.ClientName_set(bot_name)
 
-			//Warn of a few things.
+			// Warn of a few things.
 			if !server.User_rights_check(TT_USERRIGHT_MULTI_LOGIN) {
 				msg += "Warning: Unable to log in multiple times. You must log out of this user account before you can log in with a TeamTalk client.\r\n"
 			}
@@ -346,7 +349,7 @@ loop:
 			if server.Cmdid_read() != TT_CMD_LOGIN {
 				server.Log(msg)
 			}
-		//Do more here.
+		// Do more here.
 		case "addchannel":
 			cid, _ := teamtalk_param_int(params, "chanid")
 			pid, _ := teamtalk_param_int(params, "parentid")
@@ -541,7 +544,7 @@ loop:
 			uid, _ := teamtalk_param_int(params, "userid")
 			usr := server.User_find_id(uid)
 			if usr == nil {
-				//server.Log_write("Error: failed to update user information. User ID " + strconv.Itoa(uid) + " doesn't exist.", true)
+				// server.Log_write("Error: failed to update user information. User ID " + strconv.Itoa(uid) + " doesn't exist.", true)
 				continue loop
 			}
 			status_msg := ""
@@ -698,7 +701,7 @@ loop:
 			chanpath := ch.Path_read()
 			usr := server.User_find_id(server.Uid_read())
 			if usr == nil {
-				//server.Log_write("Error: unable to find the bot user for channel joining, id " + strconv.Itoa(server.Uid_read()) + ". User doesn't exist.", true)
+				// server.Log_write("Error: unable to find the bot user for channel joining, id " + strconv.Itoa(server.Uid_read()) + ". User doesn't exist.", true)
 				continue loop
 			}
 			res := ch.User_add(usr)
@@ -718,7 +721,7 @@ loop:
 			chanpath := ch.Path_read()
 			usr := server.User_find_id(server.Uid_read())
 			if usr == nil {
-				//server.Log_write("Error: unable to find the bot user for channel leaving, id " + strconv.Itoa(server.Uid_read()) + ". User doesn't exist.", true)
+				// server.Log_write("Error: unable to find the bot user for channel leaving, id " + strconv.Itoa(server.Uid_read()) + ". User doesn't exist.", true)
 				continue loop
 			}
 			res := ch.User_remove(usr)
@@ -732,7 +735,7 @@ loop:
 			uid, _ := teamtalk_param_int(params, "userid")
 			usr := server.User_find_id(uid)
 			if usr == nil {
-				//server.Log_write("Error: failed to remove user from channel. User ID " + strconv.Itoa(uid) + " doesn't exist.", true)
+				// server.Log_write("Error: failed to remove user from channel. User ID " + strconv.Itoa(uid) + " doesn't exist.", true)
 				continue loop
 			}
 			username := usr.UserName_read()
@@ -750,7 +753,7 @@ loop:
 				server.Log(lnickname + " has left " + chanpath)
 			}
 		case "messagedeliver":
-			//Completely rewrite this to properly log all messages.
+			// Completely rewrite this to properly log all messages.
 			msg_type, _ := teamtalk_param_int(params, "type")
 			msg_content := teamtalk_param_str(params, "content")
 			uid_src, _ := teamtalk_param_int(params, "srcuserid")
@@ -854,7 +857,7 @@ loop:
 				server.cmdfinish <- id
 			}
 			if id == TT_CMD_LOGIN && server.Cmderror_read() == nil {
-				//Login command has finished successfully.
+				// Login command has finished successfully.
 				server.Login_info()
 			}
 			break
@@ -864,7 +867,7 @@ loop:
 			uid, _ := teamtalk_param_int(params, "kickerid")
 			usr := server.User_find_id(uid)
 			if usr == nil {
-				//server.Log_write("Error: failed to identify the user who kicked this client. User ID " + strconv.Itoa(uid) + " doesn't exist.", true)
+				// server.Log_write("Error: failed to identify the user who kicked this client. User ID " + strconv.Itoa(uid) + " doesn't exist.", true)
 				continue loop
 			}
 			username := usr.UserName_read()
@@ -881,7 +884,7 @@ loop:
 			}
 		case "loggedout":
 			if len(params) == 0 {
-				//This client has been kicked, or otherwise logged out.
+				// This client has been kicked, or otherwise logged out.
 				server.Log_write("Logged out.", true)
 				server.init_vars()
 				server.disconnect()
@@ -893,7 +896,7 @@ loop:
 			uid, _ := teamtalk_param_int(params, "userid")
 			usr := server.User_find_id(uid)
 			if usr == nil {
-				//server.Log_write("Error: failed to log out user. User ID " + strconv.Itoa(uid) + " doesn't exist.", true)
+				// server.Log_write("Error: failed to log out user. User ID " + strconv.Itoa(uid) + " doesn't exist.", true)
 				continue loop
 			}
 			username := usr.UserName_read()
@@ -1118,8 +1121,8 @@ func (server *tt_server) Account_usertype_prompt(username, password, usertype st
 }
 
 func (server *tt_server) Account_userrights_prompt(rights int) (int, bool) {
-	//Modify this to ask if the user wants to use the currently set user rights.
-	//Create an option for the user rights in the config file.
+	// Modify this to ask if the user wants to use the currently set user rights.
+	// Create an option for the user rights in the config file.
 	if rights != 0 {
 		answer, aborted := console_read_confirm("Currently set user rights: " + teamtalk_flags_userrights_str(rights) + ".\r\nWould you like to configure the user rights now, or use the rights that are currently set?\r\n")
 		if aborted {
@@ -1187,7 +1190,7 @@ func (server *tt_server) Message_info(msg_type int, usr_src, usr_dest *tt_user, 
 		log_from = msg_type_str + " message received from " + log_nick_src + ":\r\n" + msg_content
 		log_intercept = msg_type_str + " message from " + log_nick_src + " to " + log_nick_dest + ":\r\n" + msg_content
 		if usr_dest.Uid_read() == server.Uid_read() {
-			//The bot received a message.
+			// The bot received a message.
 			server.Log_console(log_from, true)
 			server.Log_username_set(usr_src.UserName_read())
 			server.Log_write_files(log_nick_src + ": " + log_to)
@@ -1195,9 +1198,9 @@ func (server *tt_server) Message_info(msg_type int, usr_src, usr_dest *tt_user, 
 				server.Log_username_set(usr_dest.UserName_read())
 				server.Log_write_account(log_nick_dest + ": " + log_from)
 			}
-			//End bot receiving a message.
+			// End bot receiving a message.
 		} else if usr_src.Uid_read() == server.Uid_read() {
-			//Bot sent a private message.
+			// Bot sent a private message.
 			server.Log_console(log_to, true)
 			server.Log_username_set(usr_src.UserName_read())
 			server.Log_write_files(log_nick_src + ": " + log_to)
@@ -1205,9 +1208,9 @@ func (server *tt_server) Message_info(msg_type int, usr_src, usr_dest *tt_user, 
 				server.Log_username_set(usr_dest.UserName_read())
 				server.Log_write_account(log_nick_dest + ": " + log_from)
 			}
-			//End of bot sending private message.
+			// End of bot sending private message.
 		} else {
-			//Bot intercepted a private message.
+			// Bot intercepted a private message.
 			username_src := usr_src.UserName_read()
 			username_dest := usr_dest.UserName_read()
 			server.Log_username_set(username_src)
@@ -1220,7 +1223,7 @@ func (server *tt_server) Message_info(msg_type int, usr_src, usr_dest *tt_user, 
 				server.Log_write_account(log_nick_dest + ": " + log_from)
 				server.Log_write(log_intercept, false)
 			}
-			//End of bot intercepting a private message.
+			// End of bot intercepting a private message.
 		}
 		return
 	}
@@ -1784,7 +1787,7 @@ func (server *tt_server) Send(cmd string, genid bool) (bool, error) {
 	if genid {
 		cmd += " id=" + strconv.Itoa(server.Cmdid_add())
 	}
-	//Ensures we can't send a command until the other has finished first.
+	// Ensures we can't send a command until the other has finished first.
 	server.cl.Lock()
 	defer server.cl.Unlock()
 	server.Cmd_sent_set(true)
@@ -2431,7 +2434,7 @@ func (server *tt_server) Config() *config {
 	return server.config
 }
 
-//Section for server commands.
+// Section for server commands.
 
 func (server *tt_server) cmd_can_send(failed string) bool {
 	not_connected := "Not connected to server."
@@ -2862,7 +2865,6 @@ func (server *tt_server) cmd_list_accounts() bool {
 						msg_changed += "User rights: " + userrights
 					}
 				}
-
 			}
 
 		}

@@ -101,7 +101,7 @@ func console_cmd() {
 		if line == "" {
 			continue
 		}
-		//Parse commands here.
+		// Parse commands here.
 		params := strings.Split(line, " ")
 		if len(params) != 0 {
 			cmd := strings.ToLower(params[0])

@@ -249,8 +249,8 @@ func conf_init(cname string) {
 	c = NewConfig(cname)
 	servers := c.Servers_read()
 	if len(servers) != 0 {
-		//Inicial hostname resolution for duplicate server checking.
-		//Check the display name here, too, as it can't be empty.
+		// Inicial hostname resolution for duplicate server checking.
+		// Check the display name here, too, as it can't be empty.
 		for _, server := range servers {
 			msg := ""
 			if server.DisplayName_read() == "" {
@@ -283,9 +283,9 @@ func conf_init(cname string) {
 			}
 			server.resolve()
 		}
-		//Check for things like duplicates here.
+		// Check for things like duplicates here.
 		if len(servers) != 1 {
-			//Check for a duplicate server by name.
+			// Check for a duplicate server by name.
 		name:
 			for {
 				for _, server := range c.Servers_read() {
@@ -303,7 +303,7 @@ func conf_init(cname string) {
 				}
 				break name
 			}
-			//Check for a duplicate server by its information.
+			// Check for a duplicate server by its information.
 		info:
 			for {
 				for _, server := range c.Servers_read() {
@@ -323,7 +323,7 @@ func conf_init(cname string) {
 				break info
 			}
 		}
-		//If configured, set the active server.
+		// If configured, set the active server.
 		name := c.Server_active_read_name()
 		if name != "" {
 			if servers := c.Server_find_name(name); len(servers) != 0 {
@@ -1040,11 +1040,11 @@ func (conf *config) Server_prompt_conn_info(server *tt_server, changeprompt bool
 }
 
 func (conf *config) Server_prompt_host(server *tt_server, changeprompt bool) (bool, bool) {
-	//Return values are as follows.
-	//First is changed,
-	//but return this one as true
-	//even if unchanged if dealing with the function non-interactively.
-	//Second is aborted.
+	// Return values are as follows.
+	// First is changed,
+	// but return this one as true
+	// even if unchanged if dealing with the function non-interactively.
+	// Second is aborted.
 	oldhost := server.Host_read()
 	changed := false
 	answer := false
@@ -1105,9 +1105,9 @@ func (conf *config) Server_prompt_port(server *tt_server, changeprompt bool) (bo
 	answer := false
 	aborted := false
 	changed := false
-	//First return value is changed.
-	//Return true if non-interactive.
-	//Second return value is aborted.
+	// First return value is changed.
+	// Return true if non-interactive.
+	// Second return value is aborted.
 	for {
 		if oldport != "" {
 			if changeprompt {

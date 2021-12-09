@@ -4,15 +4,18 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"github.com/acatton/goreadline-ng"
 	"os"
 	_ "runtime"
 	"strings"
 	"sync"
+
+	"github.com/acatton/goreadline-ng"
 )
 
-var rl *readline.Instance
-var lrl sync.Mutex
+var (
+	rl  *readline.Instance
+	lrl sync.Mutex
+)
 
 func init() {
 	console_open()

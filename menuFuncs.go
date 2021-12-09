@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-//Functions for generating menues.
+// Functions for generating menues.
 
 func server_active_check(prompt string) *tt_server {
 	if s := c.Server_active_read(); s != nil {
@@ -45,52 +45,52 @@ func server_modify_menu_prompt(server *tt_server) bool {
 	}
 	menu := []string{}
 	funcs := []func(*tt_server) bool{}
-	//0 is all server options.
+	// 0 is all server options.
 	menu = append(menu, "All server options.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		return c.Server_modify_prompt(server, true)
 	})
-	//1 is the display name.
+	// 1 is the display name.
 	menu = append(menu, "Display name.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		return c.Server_prompt_displayname(server, true)
 	})
-	//2 is connection information.
+	// 2 is connection information.
 	menu = append(menu, "Connection information.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		return c.Server_prompt_conn_info(server, true)
 	})
-	//3 is account information.
+	// 3 is account information.
 	menu = append(menu, "Account information.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		return c.Server_prompt_account_info(server, true)
 	})
-	//4 is the nickname.
+	// 4 is the nickname.
 	menu = append(menu, "Nickname.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		return c.Server_prompt_nickname(server, true)
 	})
-	//5 is the autoconnect information.
+	// 5 is the autoconnect information.
 	menu = append(menu, "Autoconnect information.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		return c.Server_prompt_autoconnect_info(server, true)
 	})
-	//6 is the autosubscription information.
+	// 6 is the autosubscription information.
 	menu = append(menu, "Automatic subscriptions information.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		return c.Server_prompt_autosubscriptions(server, true)
 	})
-	//7 is the display information.
+	// 7 is the display information.
 	menu = append(menu, "Displayed events information.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		return c.Server_prompt_events_info(server, true)
 	})
-	//8 is the logging information.
+	// 8 is the logging information.
 	menu = append(menu, "Log information.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		return c.Server_prompt_log_info(server, true)
 	})
-	//8 is done.
+	// 8 is done.
 	menu = append(menu, "Done.")
 	funcs = append(funcs, func(server *tt_server) bool {
 		console_write("Command complete.")
@@ -110,62 +110,62 @@ func servers_modify_menu_prompt() bool {
 	}
 	menu := []string{}
 	funcs := []func() bool{}
-	//0 is autoconnect on start.
+	// 0 is autoconnect on start.
 	menu = append(menu, "Autoconnect on program start")
 	funcs = append(funcs, func() bool {
 		return c.Servers_AutoConnectOnStart_prompt()
 	})
-	//1 is autoconnect on connection loss.
+	// 1 is autoconnect on connection loss.
 	menu = append(menu, "Reconnect on connection loss")
 	funcs = append(funcs, func() bool {
 		return c.Servers_AutoConnectOnDisconnect_prompt()
 	})
-	//2 is reconnect on kick.
+	// 2 is reconnect on kick.
 	menu = append(menu, "Reconnect if kicked")
 	funcs = append(funcs, func() bool {
 		return c.Servers_AutoConnectOnKick_prompt()
 	})
-	//3 is autosubscriptions.
+	// 3 is autosubscriptions.
 	menu = append(menu, "Set automatic user subscriptions")
 	funcs = append(funcs, func() bool {
 		return c.Servers_AutoSubscriptions_prompt()
 	})
-	//4 is display server events.
+	// 4 is display server events.
 	menu = append(menu, "Display server events")
 	funcs = append(funcs, func() bool {
 		return c.Servers_DisplayEvents_prompt()
 	})
-	//5 is display extended connection information.
+	// 5 is display extended connection information.
 	menu = append(menu, "Display extended connection information")
 	funcs = append(funcs, func() bool {
 		return c.Servers_DisplayExtendedConnInfo_prompt()
 	})
-	//6 is display status updates.
+	// 6 is display status updates.
 	menu = append(menu, "Display status updates")
 	funcs = append(funcs, func() bool {
 		return c.Servers_DisplayStatusUpdates_prompt()
 	})
-	//7 is display subscription updates.
+	// 7 is display subscription updates.
 	menu = append(menu, "Display subscription updates")
 	funcs = append(funcs, func() bool {
 		return c.Servers_DisplaySubscriptionUpdates_prompt()
 	})
-	//8 is beep on critical events.
+	// 8 is beep on critical events.
 	menu = append(menu, "Beep on critical events")
 	funcs = append(funcs, func() bool {
 		return c.Servers_BeepOnCriticalEvents_prompt()
 	})
-	//9 is log information.
+	// 9 is log information.
 	menu = append(menu, "Logging information")
 	funcs = append(funcs, func() bool {
 		return c.Servers_LogInfo_prompt()
 	})
-	//10 is use global nickname.
+	// 10 is use global nickname.
 	menu = append(menu, "Use global nickname")
 	funcs = append(funcs, func() bool {
 		return c.Servers_UseGlobalNickName_prompt()
 	})
-	//11 is done.
+	// 11 is done.
 	menu = append(menu, "Done.")
 	funcs = append(funcs, func() bool {
 		return false
@@ -181,32 +181,32 @@ func servers_modify_menu_prompt() bool {
 func conf_modify_menu_prompt() bool {
 	menu := []string{}
 	funcs := []func() bool{}
-	//0 is all default configuration options.
+	// 0 is all default configuration options.
 	menu = append(menu, "All default options.")
 	funcs = append(funcs, func() bool {
 		return c.Defaults_prompt()
 	})
-	//1 is the default autoconnect information.
+	// 1 is the default autoconnect information.
 	menu = append(menu, "Autoconnect information.")
 	funcs = append(funcs, func() bool {
 		return c.AutoConnectInfo_prompt()
 	})
-	//2 is default autosubscription information.
+	// 2 is default autosubscription information.
 	menu = append(menu, "Autosubscriptions.")
 	funcs = append(funcs, func() bool {
 		return c.AutoSubscriptions_prompt()
 	})
-	//3 is default displayed events information.
+	// 3 is default displayed events information.
 	menu = append(menu, "Displayed information.")
 	funcs = append(funcs, func() bool {
 		return c.EventsInfo_prompt()
 	})
-	//4 is logging information.
+	// 4 is logging information.
 	menu = append(menu, "Log information.")
 	funcs = append(funcs, func() bool {
 		return c.LogInfo_prompt()
 	})
-	//5 is the use defaults prompt.
+	// 5 is the use defaults prompt.
 	menu = append(menu, "Use defaults on server creation.")
 	funcs = append(funcs, func() bool {
 		return c.UseDefaults_prompt()

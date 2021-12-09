@@ -10,7 +10,7 @@ var quit chan bool
 
 func signals_init() {
 	//Signal notifiers.
-	kill := make(chan os.Signal)
+	kill := make(chan os.Signal, 2)
 	signal.Notify(kill,
 		os.Interrupt,
 		syscall.SIGTERM,

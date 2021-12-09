@@ -12,4 +12,7 @@
 # In addition to making a static build, this script will strip all debug information from the binaries,
 # and trim the build path of your current working directory from all information returned in case of a panic.
 
-CC=musl-gcc go build -buildmode=pie -trimpath -ldflags "-linkmode external -w -s -extldflags '-static'" -o teamtalk_bot .
+export DATE=$(date -u '+%Y-%m-%d__%H:%M:%S_(%Z)')
+export VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
+export CC=musl-gcc
+go build -buildmode=pie -trimpath -ldflags "-linkmode external -extldflags '-static' -s -w -X main.Version=${VERSION} -X main.BuildTime=${DATE}" -o teamtalk_bot .

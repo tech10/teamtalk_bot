@@ -30,6 +30,16 @@ jobs:
         name: Set DateEnv
         run: echo "DATE=$(date -u '+%Y-%m-%d__%H:%M:%S_(%Z)')" >> $GITHUB_ENV
       -
+        name: Cash Builder
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:

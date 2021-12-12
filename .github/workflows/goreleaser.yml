@@ -27,9 +27,6 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
       -
-        name: Set DateEnv
-        run: echo "DATE=$(date -u '+%Y-%m-%d__%H:%M:%S_(%Z)')" >> $GITHUB_ENV
-      -
         name: Get Go Version
         run: go version
       -

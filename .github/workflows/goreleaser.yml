@@ -30,6 +30,9 @@ jobs:
         name: Set DateEnv
         run: echo "DATE=$(date -u '+%Y-%m-%d__%H:%M:%S_(%Z)')" >> $GITHUB_ENV
       -
+        name: Get Go Version
+        run: go version
+      -
         name: Cash Builder
         uses: actions/cache@v2
         with:

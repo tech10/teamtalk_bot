@@ -1298,7 +1298,7 @@ func init() {
 		func(param string) {
 			str := bot_name + ", version " + Version + "\r\n"
 			if BuildTime != "" {
-				btime, err := time.Parse("2006-01-02__15:04:05_(MST)", BuildTime)
+				btime, err := time.Parse(time.RFC3339, BuildTime)
 				if err != nil {
 					str += "Unable to retrieve build time.\r\nError: " + err.Error() + "\r\nThis is a bug, report it."
 				} else {

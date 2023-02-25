@@ -122,8 +122,10 @@ const (
 
 // const TT_SUBSCRIBE_INTERCEPT_DESKTOP_INPUT = 0x00800000
 // const TT_SUBSCRIBE_INTERCEPT_DESKTOP_INPUT_STR = "intercept desktop input"
-const TT_SUBSCRIBE_INTERCEPT_MEDIA_FILE = 0x01000000
-const TT_SUBSCRIBE_INTERCEPT_MEDIA_FILE_STR = "intercept media file stream"
+const (
+	TT_SUBSCRIBE_INTERCEPT_MEDIA_FILE     = 0x01000000
+	TT_SUBSCRIBE_INTERCEPT_MEDIA_FILE_STR = "intercept media file stream"
+)
 
 // Message types.
 const TT_MSGTYPE_USER = 1

@@ -8,6 +8,8 @@ on:
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       -
         name: Checkout
@@ -18,7 +20,8 @@ jobs:
         name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: ${{ secrets.GO_LATEST }}
+          go-version: stable
+          check-latest: true
           cache: true
       -
         name: Import GPG key
@@ -35,5 +38,5 @@ jobs:
           version: latest
           args: release --clean
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}

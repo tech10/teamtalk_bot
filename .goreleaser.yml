@@ -1,3 +1,4 @@
+version: 2
 project_name: teamtalk_bot
 before:
   hooks:
@@ -28,12 +29,11 @@ builds:
         goarch: 386
 archives:
   -
-    rlcp: true
     format_overrides:
       - goos: windows
-        format: zip
+        formats: zip
       - goos: darwin
-        format: zip
+        formats: zip
     files:
       - LICENSE
       - README.MD
@@ -42,7 +42,7 @@ archives:
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  version_template: "{{ .Tag }}-next"
 signs:
   - artifacts: checksum
     args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
@@ -54,6 +54,5 @@ changelog:
       - '^release:'
 source:
   enabled: true
-  rlcp: true
   name_template: "{{ .ProjectName }}_source"
   format: "tar.gz"
